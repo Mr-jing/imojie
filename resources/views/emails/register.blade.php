@@ -1,0 +1,1 @@
+点击完成注册：{{ url('auth/activation?'.http_build_query(['email' => $email, 'code' => $code])) }}

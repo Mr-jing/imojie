@@ -1,0 +1,32 @@
+#passport-wrap {
+    margin: 30px auto 0;
+    width: 55%;
+}
+
+#passport-wrap ul {
+    border: 1px solid #337ab7;
+    border-bottom: none;
+    border-radius: 4px;
+}
+
+#passport-wrap ul li {
+    border-bottom: 1px solid #337ab7;
+    border-radius: 4px;
+}
+
+#bind-wrap {
+    margin: 30px auto 0;
+    padding: 45px 15px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px 4px 0 0;
+    width: 50%;
+}
+
+.mb15 {
+    margin-bottom: 15px;
+}
+
+.mt10 {
+    margin-top: 10px;
+}
+

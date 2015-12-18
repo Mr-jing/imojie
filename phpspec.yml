@@ -1,0 +1,5 @@
+suites:
+    main:
+        namespace: Imojie
+        psr4_prefix: Imojie
+        src_path: app
