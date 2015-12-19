@@ -51,3 +51,6 @@ Route::get('user/settings/password', 'UserController@getPassword');
 Route::post('user/settings/password', 'UserController@postPassword');
 Route::get('user/settings/oauth', 'UserController@getOauth');
 Route::post('user/settings/oauth', 'UserController@postOauth');
+
+// 贴子相关
+Route::resource('topic', 'TopicController');
