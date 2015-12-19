@@ -7,9 +7,17 @@ use Illuminate\Http\Request;
 use Imojie\Http\Requests;
 use Imojie\Models\Topic;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Imojie\Http\Requests\SaveTopicRequest;
 
 class TopicController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -37,7 +45,7 @@ class TopicController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function store(Request $request)
+    public function store(SaveTopicRequest $request)
     {
         $data = array(
             'uid' => Sentinel::getUser()->id,
@@ -45,7 +53,6 @@ class TopicController extends Controller
             'original_content' => $request->input('content'),
             'content' => $request->input('content'),
             'active_at' => time(),
-            'created_at' => time(),
         );
 
         $topic = Topic::create($data);
@@ -87,7 +94,7 @@ class TopicController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function update(Request $request, $id)
+    public function update(SaveTopicRequest $request, $id)
     {
         $topic = Topic::findOrFail($id);
 
@@ -95,7 +102,6 @@ class TopicController extends Controller
             'title' => $request->input('title'),
             'original_content' => $request->input('content'),
             'content' => $request->input('content'),
-            'updated_at' => time(),
             'active_at' => time(),
         );
 
@@ -115,6 +121,12 @@ class TopicController extends Controller
     public function destroy($id)
     {
         $topic = Topic::findOrFail($id);
+
+
+        if ($topic->uid !== Sentinel::getUser()->id) {
+            throw new AccessDeniedHttpException();
+        }
+
         if ($topic->delete()) {
             return redirect()->back()->with('message', '删除成功');
         } else {

@@ -103,6 +103,12 @@ return [
             'required' => '密码不能为空',
             'confirmed' => '两次密码必须一致',
         ],
+        'title' => [
+            'required' => '贴子标题不能为空',
+        ],
+        'content' => [
+            'required' => '贴子内容不能为空',
+        ],
     ],
 
     /*

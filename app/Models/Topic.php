@@ -15,6 +15,5 @@ class Topic extends Model
         'original_content',
         'content',
         'active_at',
-        'created_at',
     ];
 }
