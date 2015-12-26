@@ -30,3 +30,18 @@
     margin-top: 10px;
 }
 
+.topic {
+    height: 63px;
+    border-bottom: 1px solid #d0e9c6;
+    padding: 10px;
+}
+
+.avatar {
+    display: block;
+}
+
+.other {
+    width: 42px;
+    height: 42px;
+}
+
