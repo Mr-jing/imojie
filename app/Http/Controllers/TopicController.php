@@ -47,11 +47,14 @@ class TopicController extends Controller
      */
     public function store(SaveTopicRequest $request)
     {
+        $originalContent = trim($request->input('content'));
+        $content = $originalContent;
+
         $data = array(
             'uid' => Sentinel::getUser()->id,
-            'title' => $request->input('title'),
-            'original_content' => $request->input('content'),
-            'content' => $request->input('content'),
+            'title' => trim($request->input('title')),
+            'original_content' => $originalContent,
+            'content' => $content,
             'active_at' => time(),
         );
 
@@ -98,10 +101,13 @@ class TopicController extends Controller
     {
         $topic = Topic::findOrFail($id);
 
+        $originalContent = trim($request->input('content'));
+        $content = $originalContent;
+
         $data = array(
-            'title' => $request->input('title'),
-            'original_content' => $request->input('content'),
-            'content' => $request->input('content'),
+            'title' => trim($request->input('title')),
+            'original_content' => $originalContent,
+            'content' => $content,
             'active_at' => time(),
         );
 
@@ -128,7 +134,7 @@ class TopicController extends Controller
         }
 
         if ($topic->delete()) {
-            return redirect()->back()->with('message', '删除成功');
+            return redirect()->route('topic.index')->with('message', '删除成功');
         } else {
             return redirect()->back()->withErrors(['删除失败，请重新尝试']);
         }

@@ -29,17 +29,6 @@
                             <span>{{$topic->like_count}}</span>
                         </div>
                     </div>
-
-
-                    {{--<div>--}}
-                    {{--<a href="{{route('topic.edit', [$topic->id])}}">编辑</a>--}}
-
-                    {{--<form method="post" action="{{route('topic.destroy', $topic->id)}}">--}}
-                    {{--{!! csrf_field() !!}--}}
-                    {{--<input type="hidden" name="_method" value="DELETE"/>--}}
-                    {{--<input type="submit" value="删除"/>--}}
-                    {{--</form>--}}
-                    {{--</div>--}}
                 </li>
             @endforeach
         </ul>
