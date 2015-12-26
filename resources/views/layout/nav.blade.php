@@ -1,3 +1,25 @@
+@if(Session::get('message'))
+    <div class="alert alert-success global-alert" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>{{Session::get('message')}}</strong>
+    </div>
+@endif
+
+@if(count($errors->all()) > 0)
+    <div class="alert alert-danger global-alert" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>
+            @foreach($errors->all() as $error)
+                {{$error}}<br/>
+            @endforeach
+        </strong>
+    </div>
+@endif
+
 <nav class="navbar navbar-inverse navbar-static-top">
     <div class="container">
         <div class="navbar-header">

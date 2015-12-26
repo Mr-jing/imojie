@@ -45,3 +45,16 @@
     height: 42px;
 }
 
+.color_red {
+    color: red;
+}
+
+#topic_title_remain {
+    font-weight: 700;
+    font-style: italic;
+}
+
+.global-alert {
+    margin-bottom: 0;
+    text-align: center;
+}
