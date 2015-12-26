@@ -105,6 +105,7 @@ return [
         ],
         'title' => [
             'required' => '贴子标题不能为空',
+            'between' => '贴子标题的长度必须为 :min ~ :max',
         ],
         'content' => [
             'required' => '贴子内容不能为空',

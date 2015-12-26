@@ -15,13 +15,15 @@
             </div>
             <div class="panel-body">{{$topic->content}}</div>
             <div class="panel-footer">
-                <a href="{{route('topic.edit', [$topic->id])}}">编辑</a>
+                @if(Sentinel::getUser()->id === $topic->uid)
+                    <a href="{{route('topic.edit', [$topic->id])}}">编辑</a>
 
-                <form method="post" action="{{route('topic.destroy', $topic->id)}}">
-                    {!! csrf_field() !!}
-                    <input type="hidden" name="_method" value="DELETE"/>
-                    <input type="submit" value="删除"/>
-                </form>
+                    <form method="post" action="{{route('topic.destroy', $topic->id)}}">
+                        {!! csrf_field() !!}
+                        <input type="hidden" name="_method" value="DELETE"/>
+                        <input type="submit" value="删除"/>
+                    </form>
+                @endif
             </div>
         </div>
     </div>

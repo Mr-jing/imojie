@@ -35,8 +35,8 @@
 
         <div id="navbar" class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-                <li class="{{ (\Request::is('record*') ? ' active ' : '') }}"><a href="{{ url('/') }}">首页</a></li>
-                <li class="{{ (\Request::is('about') ? ' active ' : '') }}"><a href="{{ url('/about') }}">关于</a></li>
+                <li class="{{ (\Request::is('/') ? ' active ' : '') }}"><a href="{{ url('/') }}">首页</a></li>
+                <li class="{{ (\Request::is('topic') ? ' active ' : '') }}"><a href="{{ url('/topic') }}">社区</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 @if(!Sentinel::check())
