@@ -16,4 +16,34 @@ class Topic extends Model
         'content',
         'active_at',
     ];
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_hide', false)
+            ->where('is_draft', false)
+            ->orderBy('active_at', 'desc');
+    }
+
+    public function scopeExcellent($query)
+    {
+        return $query->where('is_hide', false)
+            ->where('is_draft', false)
+            ->where('is_excellent', true)
+            ->orderBy('created_at', 'desc');
+    }
+
+    public function scopeHot($query)
+    {
+        return $query->where('is_hide', false)
+            ->where('is_draft', false)
+            ->orderBy('reply_count', 'desc');
+    }
+
+    public function scopeNewest($query)
+    {
+        return $query->where('is_hide', false)
+            ->where('is_draft', false)
+            ->orderBy('created_at', 'desc');
+    }
+
 }

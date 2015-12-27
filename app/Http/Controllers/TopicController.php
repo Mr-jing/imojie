@@ -4,7 +4,6 @@ namespace Imojie\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Imojie\Http\Requests;
 use Imojie\Models\Topic;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -15,6 +14,8 @@ class TopicController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['index', 'show']]);
+        \DB::connection()->enableQueryLog();
+
     }
 
 
@@ -23,10 +24,32 @@ class TopicController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $topics = Topic::get();
-        return view('topic.index', compact('topics'));
+        $sort = $request->input('sort', 'active');
+
+        switch ($sort) {
+            case 'active':
+                $topics = Topic::active()->paginate(5);
+                break;
+            case 'excellent':
+                $topics = Topic::excellent()->paginate(5);
+                break;
+            case 'hot':
+                $topics = Topic::hot()->paginate(5);
+                break;
+            case 'newest':
+                $topics = Topic::newest()->paginate(5);
+                break;
+            default:
+                $sort = 'active';
+                $topics = Topic::active()->paginate(5);
+                break;
+        }
+
+//        dd(\DB::getQueryLog());
+
+        return view('topic.index', compact('topics', 'sort'));
     }
 
     /**

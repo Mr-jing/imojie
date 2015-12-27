@@ -22,12 +22,39 @@
     width: 50%;
 }
 
+.clear_margin {
+    margin: 0;
+}
+
 .mb15 {
     margin-bottom: 15px;
 }
 
 .mt10 {
     margin-top: 10px;
+}
+
+.color_red {
+    color: red;
+}
+
+.text_center {
+    text-align: center;
+}
+
+.global-alert {
+    margin-bottom: 0;
+    text-align: center;
+}
+
+/*贴子列表 start*/
+.topic_sort .active {
+    color: #000;
+}
+
+.topic_list {
+    padding-left: 0;
+    margin-bottom: 0;
 }
 
 .topic {
@@ -45,16 +72,14 @@
     height: 42px;
 }
 
-.color_red {
-    color: red;
-}
+/*贴子列表 end*/
 
+/*创建贴子 start*/
 #topic_title_remain {
     font-weight: 700;
     font-style: italic;
 }
 
-.global-alert {
-    margin-bottom: 0;
-    text-align: center;
-}
+/*创建贴子 end*/
+
+
