@@ -1,4 +1,10 @@
 $(function () {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
     var hash = window.location.hash;
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
 
@@ -16,6 +22,9 @@ $(function () {
     });
 
     function topicTitleRemain() {
+        if (undefined === $('#topic_title').val()) {
+            return;
+        }
         var remain = 80 - $('#topic_title').val().length;
         var remainSpan = $('#topic_title_remain');
         if (remain >= 0) {
@@ -26,4 +35,17 @@ $(function () {
     }
 
     topicTitleRemain();
+
+
+    $('#delete_topic').click(function () {
+        console.log($(this).attr('data-url'), $(this).attr('data-method'));
+
+        var postData = {
+            _method: $(this).attr('data-method')
+        };
+        $.post($(this).attr('data-url'), postData, function (res) {
+            console.log(res);
+            $('#delete_topic').attr('data-url', "http://imojie.my/topic/14");
+        });
+    });
 });

@@ -2,8 +2,9 @@
 
 namespace Imojie\Http\Controllers;
 
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
-
+use Illuminate\Http\JsonResponse;
 use Imojie\Models\Topic;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -147,17 +148,21 @@ class TopicController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         $topic = Topic::findOrFail($id);
 
-
-        if ($topic->uid !== Sentinel::getUser()->id) {
+        if (Gate::forUser(Sentinel::getUser())->denies('delete-topic', $topic)) {
             throw new AccessDeniedHttpException();
         }
 
         if ($topic->delete()) {
-            return redirect()->route('topic.index')->with('message', '删除成功');
+            if ($request->ajax() || $request->wantsJson()) {
+                return new JsonResponse('删除成功', 200);
+
+            } else {
+                return redirect()->route('topic.index')->with('message', '删除成功');
+            }
         } else {
             return redirect()->back()->withErrors(['删除失败，请重新尝试']);
         }

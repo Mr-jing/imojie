@@ -17,6 +17,8 @@
             <div class="panel-footer">
                 @if(Sentinel::getUser()->id === $topic->uid)
                     <a href="{{route('topic.edit', [$topic->id])}}">编辑</a>
+                    <a id="delete_topic" href="javascript:;" data-url="{{route('topic.destroy', $topic->id)}}"
+                       data-method="delete">删除</a>
 
                     <form method="post" action="{{route('topic.destroy', $topic->id)}}">
                         {!! csrf_field() !!}
