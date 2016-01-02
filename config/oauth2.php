@@ -28,7 +28,29 @@ return [
     */
 
     'grant_types' => [
-
+        // 开放给第三方
+        'authorization_code' => [
+            'class' => \League\OAuth2\Server\Grant\AuthCodeGrant::class,
+            'access_token_ttl' => 3600,
+            'auth_token_ttl' => 60
+        ],
+        // 提供给自家系列产品
+        'password' => [
+            'class' => \League\OAuth2\Server\Grant\PasswordGrant::class,
+            'callback' => '\YourAppNamespace\Verifier@verify',
+            'access_token_ttl' => 3600
+        ],
+        // 提供给自家内部服务器调用
+        'client_credentials' => [
+            'class' => \League\OAuth2\Server\Grant\ClientCredentialsGrant::class,
+            'access_token_ttl' => 3600
+        ],
+        // 用于 access_token 过期时重新获取
+        'refresh_token' => [
+            'class' => \League\OAuth2\Server\Grant\RefreshTokenGrant::class,
+            'access_token_ttl' => 3600,
+            'refresh_token_ttl' => 36000
+        ],
     ],
 
     /*
@@ -54,7 +76,7 @@ return [
     |
     */
 
-    'state_param' => false,
+    'state_param' => true,
 
     /*
     |--------------------------------------------------------------------------
