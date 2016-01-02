@@ -9,7 +9,8 @@
         "laravel/framework": "5.1.*",
         "socialiteproviders/weibo": "^1.0",
         "socialiteproviders/qq": "^1.1",
-        "cartalyst/sentinel": "2.0.*"
+        "cartalyst/sentinel": "2.0.*",
+        "lucadegasperi/oauth2-server-laravel": "5.0.*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
