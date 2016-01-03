@@ -10,8 +10,8 @@ Route::post('oauth/access_token', function () {
 });
 
 Route::get('testOAuth', [
-    'middleware' => 'oauth',
-    'uses' => 'TopicController@testOAuth'
+    'middleware' => ['oauth', 'oauth-client'],
+    'uses' => 'TestController@testOAuth'
 ]);
 
 // 注册

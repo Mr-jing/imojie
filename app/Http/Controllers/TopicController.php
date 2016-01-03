@@ -10,13 +10,12 @@ use Imojie\Models\Topic;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Imojie\Http\Requests\SaveTopicRequest;
-use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'testOAuth']]);
+        $this->middleware('auth', ['except' => ['index', 'show']]);
         \DB::connection()->enableQueryLog();
     }
 
@@ -169,10 +168,4 @@ class TopicController extends Controller
         }
     }
 
-
-    public function testOAuth()
-    {
-        $user = Sentinel::findById(Authorizer::getResourceOwnerId());
-        var_dump($user->first_name, $user->email);
-    }
 }
