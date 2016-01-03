@@ -37,7 +37,7 @@ return [
         // 提供给自家系列产品
         'password' => [
             'class' => \League\OAuth2\Server\Grant\PasswordGrant::class,
-            'callback' => '\YourAppNamespace\Verifier@verify',
+            'callback' => '\Imojie\OAuth\PasswordGrantVerifier@verify',
             'access_token_ttl' => 3600
         ],
         // 提供给自家内部服务器调用

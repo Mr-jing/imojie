@@ -5,6 +5,15 @@ Route::get('/', function () {
     return view('page.index');
 });
 
+Route::post('oauth/access_token', function () {
+    return Response::json(Authorizer::issueAccessToken());
+});
+
+Route::get('testOAuth', [
+    'middleware' => 'oauth',
+    'uses' => 'TopicController@testOAuth'
+]);
+
 // 注册
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');

@@ -2,6 +2,7 @@
 
 namespace Imojie\Http\Controllers;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -9,14 +10,14 @@ use Imojie\Models\Topic;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Imojie\Http\Requests\SaveTopicRequest;
+use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 
 class TopicController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'testOAuth']]);
         \DB::connection()->enableQueryLog();
-
     }
 
 
@@ -166,5 +167,12 @@ class TopicController extends Controller
         } else {
             return redirect()->back()->withErrors(['删除失败，请重新尝试']);
         }
+    }
+
+
+    public function testOAuth()
+    {
+        $user = Sentinel::findById(Authorizer::getResourceOwnerId());
+        var_dump($user->first_name, $user->email);
     }
 }
