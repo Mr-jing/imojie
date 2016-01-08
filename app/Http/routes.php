@@ -1,5 +1,13 @@
 <?php
 
+$api = app('Dingo\Api\Routing\Router');
+
+$api->version('v1', function ($api) {
+    $api->get('users', function () {
+        return array('name' => 'xj');
+    });
+});
+
 // 首页
 Route::get('/', function () {
     return view('page.index');
