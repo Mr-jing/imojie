@@ -143,6 +143,7 @@ return [
         Imojie\Providers\AppServiceProvider::class,
         Imojie\Providers\AuthServiceProvider::class,
         Imojie\Providers\EventServiceProvider::class,
+        Imojie\Providers\OAuthServiceProvider::class,
         Imojie\Providers\RouteServiceProvider::class,
 
 //        Laravel\Socialite\SocialiteServiceProvider::class,

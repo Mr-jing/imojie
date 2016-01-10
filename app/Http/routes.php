@@ -3,9 +3,23 @@
 $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
-    $api->get('users', function () {
-        return array('name' => 'xj');
-    });
+//    $api->get('users', function () {
+//        return array('name' => 'xj');
+//    });
+
+    $api->get('users', 'Imojie\Http\ApiControllers\UserController@index');
+
+    $api->get('topic/{topic}', 'Imojie\Http\ApiControllers\TopicController@show');
+    $api->delete('del_topic/{topic}', ['middleware' => ['oauth', 'oauth-client'],
+//        'providers' => ['basic', 'oauth'],
+        'uses' => 'Imojie\Http\ApiControllers\TopicController@destroy',
+    ]);
+
+    $api->get('user/me', ['middleware' => ['oauth', 'oauth-client'],
+//        'providers' => ['basic', 'oauth'],
+        'uses' => 'Imojie\Http\ApiControllers\UserController@me',
+    ]);
+
 });
 
 // 首页
