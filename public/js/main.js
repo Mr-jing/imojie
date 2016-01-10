@@ -2,7 +2,7 @@ $(function () {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer wh0HCjElGdnnR2qca7RU9Yt43mpO6AhYfWGPOBvV'
+            'Authorization': 'Bearer BIA95FrH2JbJlGcLFkppOsAw5SGAkzKXoJxdwzN1'
         }
     });
 
@@ -39,27 +39,17 @@ $(function () {
 
 
     $('#delete_topic').click(function () {
-        console.log($(this).attr('data-url'), $(this).attr('data-method'));
-
-
+        var url = $(this).attr('data-url');
         var postData = {
             _method: $(this).attr('data-method')
-            //access_token: "uVbuVzQgp7Pn6Mia5VDd2xvHDrLDvrMh9unjOE0f"
         };
 
-        console.log(postData);
-
-        //var url = 'http://imojie.my/api/del_topic/20?access_token=uVbuVzQgp7Pn6Mia5VDd2xvHDrLDvrMh9unjOE0f';
-        var url = 'http://imojie.my/api/del_topic/20';
         $.post(url, postData, function (res) {
-            console.log(res);
-            //$('#delete_topic').attr('data-url', "http://imojie.my/topic/14");
+            if ('删除成功' === res) {
+                window.location.href = topic_urls.list;
+            } else {
+                alert(res);
+            }
         });
-
-        $.get('http://imojie.my/api/user/me', function (res) {
-            console.log(res);
-        });
-
-
     });
 });

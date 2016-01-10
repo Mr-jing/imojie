@@ -17,16 +17,19 @@
             <div class="panel-footer">
                 @if(\Sentinel::getUser() && \Sentinel::getUser()->id === $topic->uid)
                     <a href="{{route('topic.edit', [$topic->id])}}">编辑</a>
-                    <a id="delete_topic" href="javascript:;" data-url="{{route('topic.destroy', $topic->id)}}"
+                    <a id="delete_topic" href="javascript:;"
+                       data-url="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('topic.destroy', $topic->id)}}"
                        data-method="delete">删除</a>
-
-                    <form method="post" action="{{route('topic.destroy', $topic->id)}}">
-                        {!! csrf_field() !!}
-                        <input type="hidden" name="_method" value="DELETE"/>
-                        <input type="submit" value="删除"/>
-                    </form>
                 @endif
             </div>
         </div>
     </div>
+@stop
+
+@section('script')
+    <script type="text/javascript">
+        var topic_urls = {
+            list: "{{route('topic.index')}}"
+        };
+    </script>
 @stop

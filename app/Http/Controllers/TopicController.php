@@ -142,30 +142,4 @@ class TopicController extends Controller
         }
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int $id
-     * @return Response
-     */
-    public function destroy(Request $request, $id)
-    {
-        $topic = Topic::findOrFail($id);
-
-        if (Gate::forUser(Sentinel::getUser())->denies('delete-topic', $topic)) {
-            throw new AccessDeniedHttpException();
-        }
-
-        if ($topic->delete()) {
-            if ($request->ajax() || $request->wantsJson()) {
-                return new JsonResponse('删除成功', 200);
-
-            } else {
-                return redirect()->route('topic.index')->with('message', '删除成功');
-            }
-        } else {
-            return redirect()->back()->withErrors(['删除失败，请重新尝试']);
-        }
-    }
-
 }

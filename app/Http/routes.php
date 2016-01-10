@@ -10,8 +10,9 @@ $api->version('v1', function ($api) {
     $api->get('users', 'Imojie\Http\ApiControllers\UserController@index');
 
     $api->get('topic/{topic}', 'Imojie\Http\ApiControllers\TopicController@show');
-    $api->delete('del_topic/{topic}', ['middleware' => ['oauth', 'oauth-client'],
-//        'providers' => ['basic', 'oauth'],
+    $api->delete('topic/{topic}', [
+        'as' => 'topic.destroy',
+        'middleware' => ['oauth'],
         'uses' => 'Imojie\Http\ApiControllers\TopicController@destroy',
     ]);
 
@@ -84,4 +85,4 @@ Route::get('user/settings/oauth', 'UserController@getOauth');
 Route::post('user/settings/oauth', 'UserController@postOauth');
 
 // 贴子相关
-Route::resource('topic', 'TopicController');
+Route::resource('topic', 'TopicController', ['except' => ['destroy']]);

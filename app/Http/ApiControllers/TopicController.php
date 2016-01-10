@@ -153,22 +153,17 @@ class TopicController extends Controller
     {
         $topic = Topic::findOrFail($id);
 
-        return [$topic, app('Dingo\Api\Auth\Auth')->user()];
+        $user = app('Dingo\Api\Auth\Auth')->user();
 
-//        if (Gate::forUser(Sentinel::getUser())->denies('delete-topic', $topic)) {
-//            throw new AccessDeniedHttpException();
-//        }
-//
-//        if ($topic->delete()) {
-//            if ($request->ajax() || $request->wantsJson()) {
-//                return new JsonResponse('删除成功', 200);
-//
-//            } else {
-//                return redirect()->route('topic.index')->with('message', '删除成功');
-//            }
-//        } else {
-//            return redirect()->back()->withErrors(['删除失败，请重新尝试']);
-//        }
+        if (Gate::forUser($user)->denies('delete-topic', $topic)) {
+            throw new AccessDeniedHttpException();
+        }
+
+        if ($topic->delete()) {
+            return new JsonResponse('删除成功', 200);
+        } else {
+            return new JsonResponse('删除失败，请重新尝试', 500);
+        }
     }
 
 }
