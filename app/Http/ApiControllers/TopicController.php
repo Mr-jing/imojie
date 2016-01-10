@@ -39,10 +39,10 @@ class TopicController extends Controller
         );
 
         $topic = Topic::create($data);
-        if ($topic->id) {
-            return redirect()->route('topic.show', [$topic->id])->with('message', '发贴成功');
+        if ($topic && isset($topic->id)) {
+            return new JsonResponse(['message' => '发贴成功', 'data' => $topic->id], 200);
         } else {
-            return redirect()->back()->withInput()->withErrors(['保存失败，请重新尝试']);
+            return new JsonResponse('保存失败，请重新尝试', 500);
         }
     }
 

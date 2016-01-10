@@ -5,7 +5,8 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('topic.store')}}">
+        <form id="create_topic_form" method="post"
+              action="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('topic.store')}}">
             {!! csrf_field() !!}
             <div class="form-group">
                 <label for="topic_title">标题：</label>
@@ -17,8 +18,16 @@
                 <textarea class="form-control" rows="18" id="content" name="content">{{old('content')}}</textarea>
             </div>
             <div>
-                <input class="btn btn-primary" type="submit" value="发 表"/>
+                <input id="create_topic_btn" class="btn btn-primary" type="submit" value="发 表"/>
             </div>
         </form>
     </div>
+@stop
+
+@section('script')
+    <script type="text/javascript">
+        var topic_urls = {
+            list: "{{route('topic.index')}}"
+        };
+    </script>
 @stop

@@ -2,7 +2,7 @@ $(function () {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer BIA95FrH2JbJlGcLFkppOsAw5SGAkzKXoJxdwzN1'
+            'Authorization': 'Bearer qHn2MfGIGkHHPo9NyTfV3TDUAVIvA9K7Bln2jtvL'
         }
     });
 
@@ -36,6 +36,21 @@ $(function () {
     }
 
     topicTitleRemain();
+
+
+    $('#create_topic_btn').click(function (event) {
+        event.preventDefault();
+
+        var form = $('#create_topic_form');
+        var url = form.attr('action');
+        var postData = form.serialize();
+
+        $.post(url, postData, function (res) {
+            if ('发贴成功' === res.message) {
+                window.location.href = topic_urls.list + '/' + res.data;
+            }
+        });
+    });
 
 
     $('#delete_topic').click(function () {
