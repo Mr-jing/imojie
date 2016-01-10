@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{route('topic.store')}}">
+        <form method="post" action="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('topic.store')}}">
             {!! csrf_field() !!}
             <div class="form-group">
                 <label for="topic_title">标题：</label>

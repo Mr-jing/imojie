@@ -1,40 +1,31 @@
 <?php
 
 $api = app('Dingo\Api\Routing\Router');
-
-$api->version('v1', function ($api) {
-//    $api->get('users', function () {
-//        return array('name' => 'xj');
-//    });
-
-    $api->get('users', 'Imojie\Http\ApiControllers\UserController@index');
-
-    $api->get('topic/{topic}', 'Imojie\Http\ApiControllers\TopicController@show');
+$api->group([
+    'version' => 'v1',
+    'namespace' => 'Imojie\Http\ApiControllers',
+    'middleware' => ['oauth']], function ($api) {
 
     $api->post('topic', [
         'as' => 'topic.store',
-        'middleware' => ['oauth'],
-        'uses' => 'Imojie\Http\ApiControllers\TopicController@store',
+        'uses' => 'TopicController@store',
     ]);
 
     $api->match(['put', 'patch'], 'topic/{topic}', [
         'as' => 'topic.update',
-        'middleware' => ['oauth'],
-        'uses' => 'Imojie\Http\ApiControllers\TopicController@update',
+        'uses' => 'TopicController@update',
     ]);
 
     $api->delete('topic/{topic}', [
         'as' => 'topic.destroy',
-        'middleware' => ['oauth'],
-        'uses' => 'Imojie\Http\ApiControllers\TopicController@destroy',
+        'uses' => 'TopicController@destroy',
     ]);
 
-    $api->get('user/me', ['middleware' => ['oauth', 'oauth-client'],
-//        'providers' => ['basic', 'oauth'],
-        'uses' => 'Imojie\Http\ApiControllers\UserController@me',
-    ]);
-
+//        $api->get('user/me', ['middleware' => ['oauth'],
+//            'uses' => 'UserController@me',
+//        ]);
 });
+
 
 // 首页
 Route::get('/', function () {

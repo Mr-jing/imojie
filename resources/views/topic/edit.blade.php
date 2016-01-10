@@ -5,7 +5,8 @@
 
 @section('content')
     <div class="container">
-        <form method="post" action="{{route('topic.update', [$topic->id])}}">
+        <form method="post"
+              action="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('topic.update', [$topic->id])}}">
             {!! csrf_field() !!}
             <input type="hidden" name="_method" value="PUT"/>
 
