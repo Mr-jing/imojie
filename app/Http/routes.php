@@ -10,6 +10,19 @@ $api->version('v1', function ($api) {
     $api->get('users', 'Imojie\Http\ApiControllers\UserController@index');
 
     $api->get('topic/{topic}', 'Imojie\Http\ApiControllers\TopicController@show');
+
+    $api->post('topic', [
+        'as' => 'topic.store',
+        'middleware' => ['oauth'],
+        'uses' => 'Imojie\Http\ApiControllers\TopicController@store',
+    ]);
+
+    $api->match(['put', 'patch'], 'topic/{topic}', [
+        'as' => 'topic.update',
+        'middleware' => ['oauth'],
+        'uses' => 'Imojie\Http\ApiControllers\TopicController@update',
+    ]);
+
     $api->delete('topic/{topic}', [
         'as' => 'topic.destroy',
         'middleware' => ['oauth'],
@@ -85,4 +98,6 @@ Route::get('user/settings/oauth', 'UserController@getOauth');
 Route::post('user/settings/oauth', 'UserController@postOauth');
 
 // 贴子相关
-Route::resource('topic', 'TopicController', ['except' => ['destroy']]);
+Route::resource('topic', 'TopicController', [
+    'except' => ['store', 'update', 'destroy']
+]);

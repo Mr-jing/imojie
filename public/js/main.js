@@ -39,6 +39,10 @@ $(function () {
 
 
     $('#delete_topic').click(function () {
+        if (!confirm('确定要删除吗？')) {
+            return;
+        }
+
         var url = $(this).attr('data-url');
         var postData = {
             _method: $(this).attr('data-method')
