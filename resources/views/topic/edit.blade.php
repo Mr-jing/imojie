@@ -5,7 +5,7 @@
 
 @section('content')
     <div class="container">
-        <form method="post"
+        <form id="update_topic_form" method="post" data-id="{{$topic->id}}"
               action="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('topic.update', [$topic->id])}}">
             {!! csrf_field() !!}
             <input type="hidden" name="_method" value="PUT"/>
@@ -22,8 +22,16 @@
                           name="content">{{null !== old('content') ? old('content') : $topic->original_content}}</textarea>
             </div>
             <div>
-                <input class="btn btn-primary" type="submit" value="发 表"/>
+                <input id="update_topic_btn" class="btn btn-primary" type="submit" value="发 表"/>
             </div>
         </form>
     </div>
+@stop
+
+@section('script')
+    <script type="text/javascript">
+        var topic_urls = {
+            list: "{{route('topic.index')}}"
+        };
+    </script>
 @stop
