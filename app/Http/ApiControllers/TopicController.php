@@ -8,9 +8,12 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Imojie\Models\Topic;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Imojie\Http\Requests\SaveTopicRequest;
 use Imojie\Transformers\TopicTransformer;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Dingo\Api\Exception\StoreResourceFailedException;
+use Dingo\Api\Exception\UpdateResourceFailedException;
+use Dingo\Api\Exception\DeleteResourceFailedException;
 
 class TopicController extends Controller
 {
@@ -49,9 +52,9 @@ class TopicController extends Controller
 
         $topic = Topic::create($data);
         if ($topic && isset($topic->id)) {
-            return new JsonResponse(['message' => '发贴成功', 'data' => $topic->id], 200);
+            return $this->response()->item($topic, new TopicTransformer());
         } else {
-            return new JsonResponse('保存失败，请重新尝试', 500);
+            throw new StoreResourceFailedException('保存失败，请重新尝试');
         }
     }
 
@@ -78,9 +81,9 @@ class TopicController extends Controller
         );
 
         if ($topic->update($data)) {
-            return new JsonResponse('修改成功', 200);
+            return $this->response()->item($topic, new TopicTransformer());
         } else {
-            return new JsonResponse('修改失败，请重新尝试', 500);
+            throw new UpdateResourceFailedException('修改失败，请重新尝试');
         }
     }
 
@@ -91,7 +94,7 @@ class TopicController extends Controller
      * @param  int $id
      * @return Response
      */
-    public function destroy(Request $request, $id)
+    public function destroy($id)
     {
         $topic = Topic::findOrFail($id);
 
@@ -102,9 +105,9 @@ class TopicController extends Controller
         }
 
         if ($topic->delete()) {
-            return new JsonResponse('删除成功', 200);
+            return $this->response()->item($topic, new TopicTransformer());
         } else {
-            return new JsonResponse('删除失败，请重新尝试', 500);
+            throw new DeleteResourceFailedException('删除失败，请重新尝试');
         }
     }
 

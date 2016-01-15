@@ -2,7 +2,7 @@ $(function () {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer XnDvhKylLRmK5rzInVCnurJCCsNars0n3HTRMo0a'
+            'Authorization': 'Bearer siEfbBwWenpn6vmnzsvSF3wCJWE5Z3V33gUqDkOD'
         }
     });
 
@@ -46,8 +46,8 @@ $(function () {
         var postData = form.serialize();
 
         $.post(url, postData, function (res) {
-            if ('发贴成功' === res.message) {
-                window.location.href = topic_urls.list + '/' + res.data;
+            if (res.data.id) {
+                window.location.href = topic_urls.list + '/' + res.data.id;
             }
         });
     });
@@ -59,12 +59,11 @@ $(function () {
         var form = $('#update_topic_form');
         var url = form.attr('action');
         var postData = form.serialize();
-        var topicId = form.attr('data-id');
-        console.log(topicId);
+        //var topicId = form.attr('data-id');
 
         $.post(url, postData, function (res) {
-            if ('修改成功' === res) {
-                window.location.href = topic_urls.list + '/' + topicId;
+            if (res.data.id) {
+                window.location.href = topic_urls.list + '/' + res.data.id;
             }
         });
     });
@@ -81,10 +80,10 @@ $(function () {
         };
 
         $.post(url, postData, function (res) {
-            if ('删除成功' === res) {
+            if (res.data) {
                 window.location.href = topic_urls.list;
             } else {
-                alert(res);
+                alert(res.message);
             }
         });
     });
