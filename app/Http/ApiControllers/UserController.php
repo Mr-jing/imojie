@@ -7,6 +7,7 @@ use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Imojie\Models\User;
 use Imojie\Models\Zodiac;
 use Carbon\Carbon;
+use Imojie\Transformers\UserTransformer;
 
 class UserController extends Controller
 {
@@ -27,6 +28,6 @@ class UserController extends Controller
     public function me()
     {
         $user = app('Dingo\Api\Auth\Auth')->user();
-        return $user;
+        return $this->response()->item($user, new UserTransformer());
     }
 }

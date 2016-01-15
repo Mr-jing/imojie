@@ -63,32 +63,6 @@ class TopicController extends Controller
         return view('topic.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  Request $request
-     * @return Response
-     */
-    public function store(SaveTopicRequest $request)
-    {
-        $originalContent = trim($request->input('content'));
-        $content = $originalContent;
-
-        $data = array(
-            'uid' => Sentinel::getUser()->id,
-            'title' => trim($request->input('title')),
-            'original_content' => $originalContent,
-            'content' => $content,
-            'active_at' => time(),
-        );
-
-        $topic = Topic::create($data);
-        if ($topic->id) {
-            return redirect()->route('topic.show', [$topic->id])->with('message', '发贴成功');
-        } else {
-            return redirect()->back()->withInput()->withErrors(['保存失败，请重新尝试']);
-        }
-    }
 
     /**
      * Display the specified resource.
@@ -102,6 +76,7 @@ class TopicController extends Controller
         return view('topic.show', compact('topic'));
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -114,32 +89,5 @@ class TopicController extends Controller
         return view('topic.edit', compact('topic'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  Request $request
-     * @param  int $id
-     * @return Response
-     */
-    public function update(SaveTopicRequest $request, $id)
-    {
-        $topic = Topic::findOrFail($id);
-
-        $originalContent = trim($request->input('content'));
-        $content = $originalContent;
-
-        $data = array(
-            'title' => trim($request->input('title')),
-            'original_content' => $originalContent,
-            'content' => $content,
-            'active_at' => time(),
-        );
-
-        if ($topic->update($data)) {
-            return redirect()->route('topic.show', [$topic->id])->with('message', '修改成功');
-        } else {
-            return redirect()->back()->withInput()->withErrors(['修改失败，请重新尝试']);
-        }
-    }
 
 }

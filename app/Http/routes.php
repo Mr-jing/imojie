@@ -6,6 +6,11 @@ $api->group([
     'namespace' => 'Imojie\Http\ApiControllers',
     'middleware' => ['oauth']], function ($api) {
 
+    $api->get('topic', [
+        'as' => 'topic.index',
+        'uses' => 'TopicController@index',
+    ]);
+
     $api->post('topic', [
         'as' => 'topic.store',
         'uses' => 'TopicController@store',
@@ -21,9 +26,9 @@ $api->group([
         'uses' => 'TopicController@destroy',
     ]);
 
-//        $api->get('user/me', ['middleware' => ['oauth'],
-//            'uses' => 'UserController@me',
-//        ]);
+    $api->get('user/me', ['middleware' => ['oauth'],
+        'uses' => 'UserController@me',
+    ]);
 });
 
 

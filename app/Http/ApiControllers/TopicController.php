@@ -10,12 +10,21 @@ use Imojie\Models\Topic;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Imojie\Http\Requests\SaveTopicRequest;
+use Imojie\Transformers\TopicTransformer;
 
 class TopicController extends Controller
 {
     public function __construct()
     {
 //        $this->middleware('auth', ['except' => ['index', 'show']]);
+    }
+
+
+    public function index()
+    {
+        $topics = Topic::all();
+
+        return $this->response()->collection($topics, new TopicTransformer());
     }
 
 

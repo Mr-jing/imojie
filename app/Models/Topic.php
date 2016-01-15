@@ -17,6 +17,12 @@ class Topic extends Model
         'active_at',
     ];
 
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'uid');
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_hide', false)
