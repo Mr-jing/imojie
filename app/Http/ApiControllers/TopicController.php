@@ -70,6 +70,12 @@ class TopicController extends Controller
     {
         $topic = Topic::findOrFail($id);
 
+        $user = app('Dingo\Api\Auth\Auth')->user();
+
+        if (Gate::forUser($user)->denies('update-topic', $topic)) {
+            throw new AccessDeniedHttpException();
+        }
+
         $originalContent = trim($request->input('content'));
         $content = $originalContent;
 

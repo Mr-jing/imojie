@@ -31,6 +31,20 @@ $api->group([
     ]);
 });
 
+$api->group([
+    'version' => 'v1',
+    'namespace' => 'Imojie\Http\ApiControllers'], function ($api) {
+
+    $api->post('login', [
+        'uses' => 'UserController@login',
+    ]);
+
+    $api->post('oauth/access_token', function () {
+        return \Authorizer::issueAccessToken();
+    });
+
+});
+
 
 // 首页
 Route::get('/', function () {
