@@ -52,8 +52,8 @@ class UserController extends Controller
             'grant_type' => 'password',
             'username' => $credentials['email'],
             'password' => $credentials['password'],
-            'client_id' => '1',
-            'client_secret' => 'one',
+            'client_id' => env('OAUTH_CLIENT_ID'),
+            'client_secret' => env('OAUTH_CLIENT_SECRET'),
         ])->post('oauth/access_token');
     }
 
