@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "174ec756ab29af37acf70af1504c130d",
-    "content-hash": "932d0ea503c9d663826e61ed0bb7e442",
+    "hash": "e7ff4fc26b659e1686037d58593f7ef2",
+    "content-hash": "6bca38924e67badf3193b7508ca41574",
     "packages": [
         {
             "name": "cartalyst/sentinel",
@@ -1037,6 +1037,42 @@
                 "tokenizer"
             ],
             "time": "2015-12-05 17:17:57"
+        },
+        {
+            "name": "joyqi/hyper-down",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/SegmentFault/HyperDown.git",
+                "reference": "37bff1c663f8fbac63cb57138f500b6ba169e3e7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/SegmentFault/HyperDown/zipball/37bff1c663f8fbac63cb57138f500b6ba169e3e7",
+                "reference": "37bff1c663f8fbac63cb57138f500b6ba169e3e7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "HyperDown\\": "./"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD"
+            ],
+            "authors": [
+                {
+                    "name": "joyqi",
+                    "email": "joyqi@segmentfault.com"
+                }
+            ],
+            "description": "A light weight markdown parser library",
+            "time": "2015-12-04 03:21:22"
         },
         {
             "name": "laravel/framework",
@@ -4306,7 +4342,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "dingo/api": 20
+        "dingo/api": 20,
+        "joyqi/hyper-down": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

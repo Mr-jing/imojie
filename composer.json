@@ -11,7 +11,8 @@
         "socialiteproviders/qq": "^1.1",
         "cartalyst/sentinel": "2.0.*",
         "lucadegasperi/oauth2-server-laravel": "5.0.*",
-        "dingo/api": "1.0.*@dev"
+        "dingo/api": "1.0.*@dev",
+        "joyqi/hyper-down": "dev-master"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

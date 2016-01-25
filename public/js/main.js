@@ -1,10 +1,20 @@
 $(function () {
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
-            'Authorization': 'Bearer siEfbBwWenpn6vmnzsvSF3wCJWE5Z3V33gUqDkOD'
+
+    function setAjaxHeaders() {
+        var headers = {};
+        //headers['X-CSRF-TOKEN'] = $('meta[name="csrf-token"]').attr('content');
+
+        var authorization = getAuthorizationHeader();
+        if (null !== authorization) {
+            headers['Authorization'] = authorization;
         }
-    });
+
+        $.ajaxSetup({
+            headers: headers
+        });
+    }
+
+    setAjaxHeaders();
 
     var hash = window.location.hash;
     hash && $('ul.nav a[href="' + hash + '"]').tab('show');
@@ -64,6 +74,19 @@ $(function () {
         localStorage.setItem('set_tokens_created_at', (new Date()).getTime());
         for (var key in tokens) {
             localStorage.setItem(key, tokens[key]);
+        }
+    }
+
+    function clearTokens() {
+        var keys = [
+            'access_token',
+            'expires_in',
+            'refresh_token',
+            'token_type',
+            'set_tokens_created_at'
+        ];
+        for (var i in keys) {
+            localStorage.removeItem(keys[i]);
         }
     }
 
