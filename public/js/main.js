@@ -38,6 +38,84 @@ $(function () {
     topicTitleRemain();
 
 
+    $('#login_btn').click(function (event) {
+        event.preventDefault();
+
+        var form = $('#login_form');
+        var url = form.attr('action');
+        var postData = form.serialize();
+
+        $.ajax({
+            type: 'POST',
+            url: url,
+            data: postData,
+            success: function (res) {
+                setTokens(res);
+                window.location.href = '/';
+            },
+            error: function (xhr) {
+                var res = xhr.responseJSON;
+                console.log('error', res);
+            }
+        });
+    });
+
+    function setTokens(tokens) {
+        localStorage.setItem('set_tokens_created_at', (new Date()).getTime());
+        for (var key in tokens) {
+            localStorage.setItem(key, tokens[key]);
+        }
+    }
+
+    function refreshToken(refresh_token) {
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: global_urls.refresh_token,
+            data: {
+                refresh_token: refresh_token
+            },
+            success: function (res) {
+                setTokens(res);
+            },
+            error: function (xhr) {
+                var res = xhr.responseJSON;
+                console.log('error', res);
+            }
+        });
+    }
+
+    function getAccessToken() {
+        if (null === localStorage.getItem('set_tokens_created_at') ||
+            null === localStorage.getItem('expires_in') ||
+            null === localStorage.getItem('access_token') ||
+            null === localStorage.getItem('refresh_token')) {
+            return null;
+        }
+
+        var currentTime = (new Date()).getTime();
+        var isExpired = (localStorage.getItem('set_tokens_created_at') + localStorage.getItem('expires_in'))
+            < currentTime;
+        // access_token 未过期
+        if (!isExpired) {
+            return localStorage.getItem('access_token');
+        }
+
+        refreshToken(localStorage.getItem('refresh_token'));
+
+        return localStorage.getItem('access_token') ? localStorage.getItem('access_token') : null;
+    }
+
+    function getAuthorizationHeader() {
+        var tokenType = localStorage.getItem('token_type');
+        var accessToken = getAccessToken();
+        if (null !== tokenType && null !== accessToken) {
+            return tokenType + ' ' + accessToken;
+        }
+        return null;
+    }
+
+
     $('#create_topic_btn').click(function (event) {
         event.preventDefault();
 

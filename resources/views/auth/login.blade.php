@@ -10,7 +10,8 @@
                 @include('auth.auth_nav')
             </div>
             <div class="col-md-9">
-                <form method="POST" action="{{action('Auth\AuthController@postLogin')}}">
+                <form id="login_form" method="POST"
+                      action="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('login')}}">
                     @foreach ($errors->all() as $error)
                         <div class="alert alert-warning alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -35,7 +36,7 @@
                         </label>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-success btn-block">登 录</button>
+                        <button type="submit" id="login_btn" class="btn btn-success btn-block">登 录</button>
                     </div>
                     <div class="form-group">
                         <label>第三方账号登录</label>

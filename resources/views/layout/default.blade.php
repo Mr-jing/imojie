@@ -23,9 +23,14 @@
 
 @yield('content')
 
-<script type="text/javascript" src="http://cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
-<script type="text/javascript" src="http://cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/jquery/1.11.2/jquery.min.js"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="{{asset('js/main.js')}}"></script>
+<script type="text/javascript">
+    var global_urls = {
+        refresh_token: "{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('refresh_token')}}"
+    };
+</script>
 @yield('script')
 </body>
 </html>

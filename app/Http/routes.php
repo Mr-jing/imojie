@@ -36,13 +36,24 @@ $api->group([
     'namespace' => 'Imojie\Http\ApiControllers'], function ($api) {
 
     $api->post('login', [
+        'as' => 'login',
         'uses' => 'UserController@login',
     ]);
 
-    $api->post('oauth/access_token', function () {
+    $api->post('oauth/access_token', ['as' => 'access_token', function () {
         return \Authorizer::issueAccessToken();
-    });
+    }]);
 
+    $api->post('oauth/refresh_token', ['as' => 'refresh_token', function () {
+        $input = [
+            'grant_type' => 'refresh_token',
+            'refresh_token' => \Request::input('refresh_token', ''),
+            'client_id' => env('OAUTH_CLIENT_ID'),
+            'client_secret' => env('OAUTH_CLIENT_SECRET'),
+        ];
+        \Request::replace($input);
+        return \Authorizer::issueAccessToken();
+    }]);
 });
 
 
