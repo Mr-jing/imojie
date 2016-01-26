@@ -14,6 +14,7 @@ use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Dingo\Api\Exception\StoreResourceFailedException;
 use Dingo\Api\Exception\UpdateResourceFailedException;
 use Dingo\Api\Exception\DeleteResourceFailedException;
+use HyperDown\Parser;
 
 class TopicController extends Controller
 {
@@ -40,13 +41,12 @@ class TopicController extends Controller
     public function store(SaveTopicRequest $request)
     {
         $originalContent = trim($request->input('content'));
-        $content = $originalContent;
 
         $data = array(
             'uid' => Sentinel::getUser()->id,
             'title' => trim($request->input('title')),
             'original_content' => $originalContent,
-            'content' => $content,
+            'content' => (new Parser)->makeHtml($originalContent),
             'active_at' => time(),
         );
 
@@ -77,12 +77,11 @@ class TopicController extends Controller
         }
 
         $originalContent = trim($request->input('content'));
-        $content = $originalContent;
 
         $data = array(
             'title' => trim($request->input('title')),
             'original_content' => $originalContent,
-            'content' => $content,
+            'content' => (new Parser)->makeHtml($originalContent),
             'active_at' => time(),
         );
 

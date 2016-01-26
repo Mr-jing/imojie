@@ -3,6 +3,10 @@
 @section('title')编辑贴子
 @stop
 
+@section('style')
+    <link rel="stylesheet" href="{{asset('js\BachEditor-gh-pages\build\build.css')}}">
+@stop
+
 @section('content')
     <div class="container">
         <form id="update_topic_form" method="post" data-id="{{$topic->id}}"
@@ -16,9 +20,9 @@
                 <input class="form-control" type="text" id="topic_title" name="title"
                        value="{{null !== old('title') ? old('title') : $topic->title}}"/>
             </div>
-            <div class="form-group">
+            <div class="form-group editor">
                 <label for="content">内容：</label>
-                <textarea class="form-control" rows="18" id="content"
+                <textarea class="form-control" rows="18" id="myEditor"
                           name="content">{{null !== old('content') ? old('content') : $topic->original_content}}</textarea>
             </div>
             <div>
@@ -34,4 +38,5 @@
             list: "{{route('topic.index')}}"
         };
     </script>
+    <script type="text/javascript" src="{{asset('js\BachEditor-gh-pages\build\build.js')}}"></script>
 @stop
