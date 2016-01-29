@@ -73,7 +73,9 @@ class TopicController extends Controller
     public function show($id)
     {
         $topic = Topic::findOrFail($id);
-        return view('topic.show', compact('topic'));
+        $replies = $topic->replies()->paginate(1);
+
+        return view('topic.show', compact('topic', 'replies'));
     }
 
 
