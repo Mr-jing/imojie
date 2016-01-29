@@ -188,4 +188,19 @@ $(function () {
             }
         });
     });
+
+
+    $('#create_reply_btn').click(function (event) {
+        event.preventDefault();
+
+        var form = $('#create_reply_form');
+        var url = form.attr('action');
+        var postData = form.serialize();
+
+        $.post(url, postData, function (res) {
+            if (res.data.id) {
+                alert('回复成功');
+            }
+        });
+    });
 });

@@ -16,6 +16,7 @@
                 </div>
                 <div class="panel-body">{!! $topic->content !!}</div>
                 <div class="panel-footer">
+                    <a href="#add_reply">回复</a>
                     @if(\Sentinel::getUser() && \Sentinel::getUser()->id === $topic->uid)
                         <a href="{{route('topic.edit', [$topic->id])}}">编辑</a>
                         <a id="delete_topic" href="javascript:;"
@@ -46,6 +47,46 @@
                     <?php echo $replies->fragment('replies')->render(); ?>
                 </div>
             </div>
+
+            @if(!Sentinel::check())
+                <div id="add_reply" class="panel panel-default">
+                    <div class="panel-heading">
+                        添加一条回复
+                    </div>
+                    <div class="panel-body">
+                        <form action="">
+                            <div class="form-group">
+                                <textarea class="form-control" rows="8" disabled="disabled"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input class="btn btn-primary" type="submit" value="回复" disabled="disabled"/>
+                            </div>
+                            <a href="{{route('login', ['redirect_url' => \Request::url()]).'#add_reply'}}"
+                               id="login_reply_btn" type="button"
+                               class="btn btn-success btn-lg">登录后回复</a>
+                        </form>
+                    </div>
+                </div>
+            @else
+                <div id="add_reply" class="panel panel-default">
+                    <div class="panel-heading">
+                        添加一条回复
+                    </div>
+                    <div class="panel-body">
+                        <form id="create_reply_form" method="post"
+                              action="{{app('Dingo\Api\Routing\UrlGenerator')->version('v1')->route('reply.store')}}">
+                            <input type="hidden" name="topic_id" value="{{$topic->id}}"/>
+
+                            <div class="form-group">
+                                <textarea class="form-control" rows="8" name="reply_content"></textarea>
+                            </div>
+                            <div class="form-group">
+                                <input id="create_reply_btn" class="btn btn-primary" type="submit" value="回复"/>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            @endif
         </div>
 
         <div class="col-md-3">

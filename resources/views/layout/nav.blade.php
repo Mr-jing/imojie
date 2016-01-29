@@ -41,7 +41,7 @@
             <ul class="nav navbar-nav navbar-right">
                 @if(!Sentinel::check())
                     <li class="{{ (\Request::is('login') ? ' active ' : '') }}"><a
-                                href="{{ url('auth/login') }}">登录/注册</a>
+                                href="{{ route('login') }}">登录/注册</a>
                     </li>
                 @else
                     <li class="{{ (\Request::is('user/settings/*') ? ' active ' : '') }}"><a

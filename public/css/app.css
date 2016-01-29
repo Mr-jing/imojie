@@ -81,5 +81,10 @@
 }
 
 /*创建贴子 end*/
+#login_reply_btn {
+    position: relative;
+    top: -222px;
+    left: 15px;
+}
 
 
