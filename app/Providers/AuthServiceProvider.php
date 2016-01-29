@@ -33,5 +33,12 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('delete-topic', function ($user, $topic) {
             return $user->id === $topic->uid;
         });
+
+        $gate->define('delete-reply', function ($user, $reply) {
+            $isReplyOwner = $user->id === $reply->user_id;
+            $isTopicOwner = $user->id === $reply->topic->id;
+
+            return $isReplyOwner || $isTopicOwner;
+        });
     }
 }

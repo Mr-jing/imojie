@@ -23,6 +23,11 @@ class Topic extends Model
         return $this->belongsTo(User::class, 'uid');
     }
 
+    public function replies()
+    {
+        return $this->hasMany(Reply::class);
+    }
+
     public function scopeActive($query)
     {
         return $query->where('is_hide', false)

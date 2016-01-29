@@ -110,6 +110,12 @@ return [
         'content' => [
             'required' => '贴子内容不能为空',
         ],
+        'topic_id' => [
+            'required' => '贴子id不能为空',
+        ],
+        'reply_content' => [
+            'required' => '回复内容不能为空',
+        ],
     ],
 
     /*

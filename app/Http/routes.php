@@ -29,6 +29,16 @@ $api->group([
     $api->get('user/me', ['middleware' => ['oauth'],
         'uses' => 'UserController@me',
     ]);
+
+    $api->post('reply', [
+        'as' => 'reply.store',
+        'uses' => 'ReplyController@store',
+    ]);
+
+    $api->delete('reply/{reply}', [
+        'as' => 'reply.destroy',
+        'uses' => 'ReplyController@destroy',
+    ]);
 });
 
 $api->group([
